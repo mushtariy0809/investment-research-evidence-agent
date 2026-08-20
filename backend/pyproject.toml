@@ -24,6 +24,10 @@ extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+# Make `app` importable regardless of how pytest is invoked: the bare `pytest`
+# command (used in CI) does not put the working directory on sys.path the way
+# `python -m pytest` does.
+pythonpath = ["."]
 filterwarnings = [
     # starlette's own import-time notice about its httpx test client; not our code
     "ignore:Using `httpx` with `starlette.testclient` is deprecated",
