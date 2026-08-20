@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      # Defaults run the deterministic mock; set LLM_PROVIDER=anthropic and
+      # provide ANTHROPIC_API_KEY in .env for real model calls.
+      LLM_PROVIDER: ${LLM_PROVIDER:-mock}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      SEC_USER_AGENT_NAME: ${SEC_USER_AGENT_NAME:-InvestmentResearchEvidenceAgent}
+      SEC_CONTACT_EMAIL: ${SEC_CONTACT_EMAIL:-you@example.com}
+      CORS_ORIGINS: http://localhost:8080
+    volumes:
+      - app-data:/data
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  app-data:

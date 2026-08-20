@@ -1,0 +1,183 @@
+/* Professional financial-research look: quiet palette, dense tables,
+   evidence first. No UI framework — small, auditable stylesheet. */
+
+:root {
+  --navy: #12263a;
+  --navy-2: #1d3a57;
+  --accent: #2563eb;
+  --bg: #f4f6f8;
+  --card: #ffffff;
+  --border: #d9dee4;
+  --text: #1a2330;
+  --muted: #5b6b7c;
+  --ok: #1a7f4b;
+  --ok-bg: #e6f4ec;
+  --bad: #b42318;
+  --bad-bg: #fdecea;
+  --warn-bg: #fff8e6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.app { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+
+.app-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 1rem; padding: 1.5rem 0 0.5rem;
+}
+.app-header h1 { margin: 0; font-size: 1.45rem; color: var(--navy); }
+.tagline { margin: 0.25rem 0 0; color: var(--muted); max-width: 46rem; }
+
+.disclaimer {
+  background: var(--warn-bg);
+  border: 1px solid #f0dfae;
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.75rem 0 1.25rem;
+  font-size: 0.9rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 1px 2px rgb(18 38 58 / 0.05);
+}
+.card h2 { margin: 0 0 0.75rem; font-size: 1.1rem; color: var(--navy); }
+
+.row { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+.stack { display: flex; flex-direction: column; gap: 0.9rem; }
+.field { display: flex; flex-direction: column; gap: 0.3rem; max-width: 40rem; }
+
+input[type="text"], textarea, select {
+  font: inherit;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+}
+input[type="text"] { flex: 1; min-width: 16rem; }
+textarea { resize: vertical; }
+input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+button {
+  font: inherit;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--navy);
+  border-radius: 6px;
+  background: var(--navy);
+  color: #fff;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { background: var(--navy-2); }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+button.ghost { background: transparent; color: var(--navy); }
+button.approve { background: var(--ok); border-color: var(--ok); }
+button.reject { background: var(--bad); border-color: var(--bad); }
+button.revise { background: #b45f06; border-color: #b45f06; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.92rem; }
+th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.table-scroll { overflow-x: auto; }
+
+.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.85em; }
+.small { font-size: 0.83rem; }
+.muted { color: var(--muted); }
+.error { color: var(--bad); }
+.notice {
+  background: var(--ok-bg); border: 1px solid #bfe3cf; border-radius: 6px;
+  padding: 0.5rem 0.8rem; font-size: 0.9rem;
+}
+.notice.ok { color: var(--ok); }
+
+.badge {
+  display: inline-block; padding: 0.1rem 0.5rem; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 600; background: #e8edf3; color: var(--navy);
+  white-space: nowrap;
+}
+.badge.ok { background: var(--ok-bg); color: var(--ok); }
+.badge.blocked { background: var(--bad-bg); color: var(--bad); }
+.badge.form-10-k { background: #e3ebfa; color: var(--accent); }
+.badge.form-10-q { background: #ede6f7; color: #6d28d9; }
+.badge.actor-human { background: #e3ebfa; color: var(--accent); }
+
+.status {
+  padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+  background: #e8edf3; color: var(--navy); text-transform: capitalize;
+}
+.status-approved { background: var(--ok-bg); color: var(--ok); }
+.status-rejected, .status-failed { background: var(--bad-bg); color: var(--bad); }
+.status-running, .status-pending { background: #fff3d6; color: #92600a; }
+
+.workflow-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.question-echo { margin-top: 0.1rem; }
+
+.tabs { display: flex; gap: 0.25rem; border-bottom: 2px solid var(--border); margin: 0.9rem 0 1rem; flex-wrap: wrap; }
+.tab {
+  background: transparent; color: var(--muted); border: none; border-bottom: 2px solid transparent;
+  border-radius: 0; margin-bottom: -2px; padding: 0.45rem 0.8rem;
+}
+.tab:hover:not(:disabled) { background: transparent; color: var(--navy); }
+.tab.active { color: var(--navy); font-weight: 600; border-bottom-color: var(--accent); }
+
+.pipeline { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+.pipeline-step { display: flex; gap: 0.7rem; align-items: flex-start; }
+.step-state {
+  width: 1.6rem; height: 1.6rem; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;
+  background: #e8edf3; color: var(--muted);
+}
+.pipeline-step.succeeded .step-state { background: var(--ok-bg); color: var(--ok); }
+.pipeline-step.failed .step-state { background: var(--bad-bg); color: var(--bad); }
+.pipeline-step.running .step-state { background: #fff3d6; color: #92600a; }
+
+.evidence-table .excerpt {
+  margin: 0; padding-left: 0.6rem; border-left: 3px solid var(--border);
+  color: var(--muted); font-style: italic;
+}
+.row-blocked { background: var(--bad-bg); }
+
+.brief { border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.4rem; background: #fcfdfe; }
+.markdown h3 { color: var(--navy); margin: 1rem 0 0.4rem; font-size: 1.02rem; }
+.markdown blockquote {
+  margin: 0.2rem 0 0.6rem; padding-left: 0.7rem; border-left: 3px solid var(--accent);
+  color: var(--muted); font-size: 0.9rem;
+}
+.cite {
+  font-family: ui-monospace, monospace; font-size: 0.78em; font-weight: 700;
+  color: var(--accent); background: #e3ebfa; border-radius: 4px; padding: 0 0.25rem;
+}
+
+.review-panel { margin-top: 1.25rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+.review-panel h3 { margin: 0 0 0.3rem; font-size: 1rem; color: var(--navy); }
+.review-panel textarea { width: 100%; max-width: 40rem; display: block; margin: 0.3rem 0 0.6rem; }
+
+.audit-table .payload { max-width: 24rem; word-break: break-word; font-family: ui-monospace, monospace; font-size: 0.75rem; }
+
+.app-footer { margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 720px) {
+  .app-header { flex-direction: column; }
+  .workflow-header { flex-direction: column; align-items: flex-start; }
+  th, td { padding: 0.4rem 0.4rem; }
+}

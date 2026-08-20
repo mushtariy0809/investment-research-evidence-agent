@@ -1,0 +1,30 @@
+[project]
+name = "investment-research-evidence-agent"
+version = "0.1.0"
+description = "AI-assisted SEC filing research with evidence verification and human review"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort (import ordering)
+    "UP",  # pyupgrade (modern syntax)
+    "B",   # bugbear (likely bugs)
+]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI's dependency-injection idiom: Depends()/Query() in defaults is intended.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = [
+    # starlette's own import-time notice about its httpx test client; not our code
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated",
+]

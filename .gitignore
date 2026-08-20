@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Environment / secrets — never commit credentials
+.env
+.env.*
+!.env.example
+
+# Databases
+*.db
+*.sqlite3
+data/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/coverage/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Evaluation output
+eval_results/

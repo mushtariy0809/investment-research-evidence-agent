@@ -1,0 +1,125 @@
+{
+  "description": "Evaluation dataset for the Investment Research Evidence Agent. Questions run against synthetic fixture filings (deterministic, offline). 'expected_items' lists filing section item keys a good retriever should select. Probes are hand-labeled claim/excerpt pairs used to score the verification agent, including a fabricated citation that must be blocked.",
+  "questions": [
+    {
+      "id": "q01",
+      "filing": "exco-10k",
+      "task_type": "risk_factors",
+      "question": "What are the main risks related to cloud infrastructure and cybersecurity?",
+      "expected_items": ["1A"]
+    },
+    {
+      "id": "q02",
+      "filing": "exco-10k",
+      "task_type": "business_overview",
+      "question": "What products does the company sell and through which segments does it operate?",
+      "expected_items": ["1"]
+    },
+    {
+      "id": "q03",
+      "filing": "exco-10k",
+      "task_type": "revenue_segments",
+      "question": "How did total revenue change in fiscal 2023 and which segment drove the change?",
+      "expected_items": ["7", "8", "1"]
+    },
+    {
+      "id": "q04",
+      "filing": "exco-10k",
+      "task_type": "management_discussion",
+      "question": "What does management say about gross margin trends and their causes?",
+      "expected_items": ["7"]
+    },
+    {
+      "id": "q05",
+      "filing": "exco-10k",
+      "task_type": "custom",
+      "question": "How many full-time employees does the company have?",
+      "expected_items": ["1"]
+    },
+    {
+      "id": "q06",
+      "filing": "exco-10q",
+      "task_type": "management_discussion",
+      "question": "What drove revenue growth in the quarter according to management?",
+      "expected_items": ["I-2"]
+    },
+    {
+      "id": "q07",
+      "filing": "exco-10q",
+      "task_type": "risk_factors",
+      "question": "What new or updated risk factors are disclosed this quarter?",
+      "expected_items": ["II-1A"]
+    },
+    {
+      "id": "q08",
+      "filing": "exco-10q",
+      "task_type": "custom",
+      "question": "What was the operating cash flow during the quarter?",
+      "expected_items": ["I-1", "I-2"]
+    },
+    {
+      "id": "q09",
+      "filing": "nvtk-10k",
+      "task_type": "business_overview",
+      "question": "Which end markets does the company serve and which is largest?",
+      "expected_items": ["1"]
+    },
+    {
+      "id": "q10",
+      "filing": "nvtk-10k",
+      "task_type": "risk_factors",
+      "question": "What supply chain and foundry concentration risks does the company disclose?",
+      "expected_items": ["1A"]
+    },
+    {
+      "id": "q11",
+      "filing": "nvtk-10k",
+      "task_type": "revenue_segments",
+      "question": "How did net revenue change in fiscal 2023 and which end market grew?",
+      "expected_items": ["7", "1"]
+    },
+    {
+      "id": "q12",
+      "filing": "exco-10q",
+      "compare_filing": "exco-10k",
+      "task_type": "material_changes",
+      "question": "What material changes in risk factors occurred since the annual report?",
+      "expected_items": ["II-1A", "1A"]
+    }
+  ],
+  "verification_probes": [
+    {
+      "id": "p01-fabricated-citation",
+      "filing": "exco-10k",
+      "section_item": "7",
+      "claim": "The filing states that revenue reached $999 billion in fiscal 2023.",
+      "excerpt": "Total net revenue reached $999 billion in fiscal 2023.",
+      "expected": ["blocked"],
+      "note": "Fabricated quote: the excerpt does not exist in the filing and must fail the citation check."
+    },
+    {
+      "id": "p02-grounded-supported",
+      "filing": "exco-10k",
+      "section_item": "7",
+      "claim": "The filing states that total net revenue increased 14% to $612.4 million in fiscal 2023.",
+      "excerpt": "Total net revenue increased 14% to $612.4 million in fiscal 2023, compared to $537.2 million in fiscal 2022, driven primarily by a 19% increase in Subscription segment revenue.",
+      "expected": ["supported"]
+    },
+    {
+      "id": "p03-claim-overreach",
+      "filing": "exco-10k",
+      "section_item": "7",
+      "claim": "The filing states that revenue grew because of acquisitions in Asia and favorable currency movements across all markets.",
+      "excerpt": "Total net revenue increased 14% to $612.4 million in fiscal 2023, compared to $537.2 million in fiscal 2022, driven primarily by a 19% increase in Subscription segment revenue.",
+      "expected": ["unsupported", "partially_supported", "blocked"]
+    },
+    {
+      "id": "p04-polarity-flip",
+      "filing": "nvtk-10k",
+      "section_item": "7",
+      "claim": "The filing states that gross margin increased during fiscal 2023.",
+      "excerpt": "Gross margin declined to 58.2% from 60.1%, reflecting higher foundry wafer costs and lower factory utilization at our test facilities.",
+      "expected": ["contradicted", "unsupported", "blocked"]
+    }
+  ]
+}
